@@ -3,7 +3,7 @@ name: TASK_RUN_1_100
 about: 1..100 step execution run
 codex/create-github-issue-template-for-task-execution-kic7ah
 title: "[TASK] "
-=======
+
 main
 labels: ["task-run"]
 ---
@@ -20,7 +20,7 @@ codex/create-github-issue-template-for-task-execution-kic7ah
 
 ## Reviewer Pack mapping
 DOCSET_07 or DOCSET_14
-=======
+
 ## Goal
 
 ## DoD
