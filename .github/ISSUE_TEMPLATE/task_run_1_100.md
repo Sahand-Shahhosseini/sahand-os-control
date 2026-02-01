@@ -1,16 +1,11 @@
 ---
 name: TASK_RUN_1_100
 about: 1..100 step execution run
-codex/create-github-issue-template-for-task-execution-kic7ah
 title: "[TASK] "
-
 main
 labels: ["task-run"]
 ---
-
 # TASK_RUN_1_100
-
-codex/create-github-issue-template-for-task-execution-kic7ah
 ## Goal (1 sentence)
 
 ## DoD
