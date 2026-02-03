@@ -25,3 +25,15 @@ Status legend: EMPTY → SCOPE_LOCKED → DRAFT → RC0 → RC1 → APPROVED_EXT
 
 ## Next Action
 - First milestone: Lock scopes for DOC01..DOC07 (SCOPE_LOCKED) then generate RC0 PDFs.
+
+# 14-DOC Index (Control Repo)
+
+## DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3
+
+- **Spec file**: `DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3_INTEGRATED_RC2.tex`
+- **Schema**: `protocol_registry_schema.sql`
+- **Bootstrap data**: `protocol_registry_bootstrap.sql`
+- **Manifest**: `ANNEX_Z_MANIFEST_SHA256.txt`
+- **Status**: RC2 (Release Candidate), internal standard for 7+14 document architecture.
+
+This entry is driven by TASK_RUN_1_100 issue #4 in this repository.
