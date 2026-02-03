@@ -1,0 +1,557 @@
+\documentclass[11pt,a4paper]{article}
+
+% =======================
+% Packages (conservative)
+% =======================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{top=2.4cm,bottom=2.4cm,left=2.4cm,right=2.4cm}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  pdfauthor={Sahand Canon},
+  pdftitle={DOC\_PROTO\_7\_PLUS\_14\_MAINSTREAM v0.3 Integrated RC1}
+}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tcolorbox}
+\tcbset{before skip=8pt, after skip=8pt, boxrule=0.6pt, arc=2pt}
+
+% =======================
+% Styling helpers
+% =======================
+\definecolor{GovRed}{RGB}{120,0,0}
+\definecolor{ScaleBlue}{RGB}{0,70,150}
+\definecolor{SoftGray}{RGB}{245,245,245}
+
+\newtcolorbox{GovernanceBox}[1]{
+  colback=white,
+  colframe=GovRed,
+  title=\textbf{Governance Authority: #1},
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.9pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+\newtcolorbox{ScaleBox}[1]{
+  colback=SoftGray,
+  colframe=ScaleBlue,
+  title=\textbf{Scale Clauses: #1},
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.8pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+\newtcolorbox{TemplateBox}[1]{
+  colback=white,
+  colframe=black,
+  title=\textbf{Template: #1},
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.6pt,
+  left=6pt,right=6pt,top=6pt,bottom=6pt
+}
+
+\setlist[itemize]{leftmargin=*, itemsep=3pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=*, itemsep=3pt, topsep=4pt}
+
+% =======================
+% Title
+% =======================
+\title{\textbf{\LARGE DOC\_PROTO\_7\_PLUS\_14\_MAINSTREAM}\\[2pt]
+\large Integrated Specification (v0.3_Integrated_RC2)}
+\author{Protocol Specification (Integrated Mainstream Standard)}
+\date{2026-02-02}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{Scope, Design Intent, and Non-Goals}
+\subsection{Purpose}
+This document specifies \textbf{DOC\_PROTO\_7\_PLUS\_14\_MAINSTREAM} as a self-contained, reviewable standard that combines:
+\begin{itemize}
+  \item \textbf{Form Layer (DOC-7):} artifact governance, traceability, and execution discipline.
+  \item \textbf{Content Layer (Math-7 + Domain-7):} scientific/mathematical content and domain-grounded operationalization.
+\end{itemize}
+
+\subsection{Mainstream constraint}
+The protocol must be usable by external reviewers without knowledge of any private ecosystem-specific tooling. Project-specific audit engines are permitted as optional instantiations (Section~\ref{sec:audit_authority}), but the protocol itself remains vendor-agnostic.
+
+\subsection{Non-goals}
+\begin{itemize}
+  \item This specification does \emph{not} prescribe a particular research field; Domain-7 is polymorphic.
+  \item This specification does \emph{not} assume any proprietary agent; Import/selection logic may exist externally but is not required to understand compliance.
+  \item This specification does \emph{not} replace discipline-specific regulations; it defines hooks (D7 gates) to enforce them.
+\end{itemize}
+
+% =============================================================================
+\section{Architecture: Layers, Blocks, and Lifecycle}
+\subsection{Three-layer composition}
+A compliant project consists of 21 blocks:
+\begin{enumerate}
+  \item \textbf{DOC-7 (Form/Governance):} DOC01..DOC07.
+  \item \textbf{Math-7 (Abstract Content):} M1..M7.
+  \item \textbf{Domain-7 (Concrete Content):} D1..D7.
+\end{enumerate}
+
+\subsection{Artifact lifecycle states}
+Every DOC artifact and every executable deliverable must declare a lifecycle state:
+\begin{itemize}
+  \item \textbf{DRAFT:} unstable, internal iteration.
+  \item \textbf{REGISTERED:} design frozen before data collection/execution (Registered Reports pattern).
+  \item \textbf{RELEASED:} reviewed, versioned, stable.
+  \item \textbf{DEPRECATED:} retained for history; not valid for new work.
+\end{itemize}
+
+\subsection{The Form--Content separation invariant}
+DOC blocks are \textbf{containers and governors}. They must not introduce new mathematics or new domain measurements; they only:
+\begin{itemize}
+  \item govern consistency, quality, and release gates,
+  \item orchestrate mapping, traceability, and execution.
+\end{itemize}
+
+% =============================================================================
+\section{Global Invariants (Fail-Closed)}
+\label{sec:global_invariants}
+A project claiming compliance \textbf{MUST} satisfy all invariants below. Failure is \textbf{fail-closed}: artifacts are invalid until corrected.
+
+\begin{enumerate}
+  \item \textbf{Strict Form/Content Separation:} DOC blocks do not create new math or domain claims.
+  \item \textbf{Single Source of Truth for Symbols (DOC01):} any symbol/type mismatch across artifacts is a critical defect.
+  \item \textbf{Mandatory Bridge (D3):} no domain claim is valid without D3 mapping; each row includes validation and failure conditions.
+  \item \textbf{Noise-Aware Bridge (D3):} each mapping row includes a measurement/noise model and sensitivity/error propagation.
+  \item \textbf{Conjecture Ledger (M7):} all unproven claims underpinning deliverables are registered with testability and lifecycle.
+  \item \textbf{Zombie Conjecture Prevention (M7):} each conjecture has blocking status, owner, expiry/due date, and verdict state.
+  \item \textbf{Algorithm--Implementation Separation:} M6 is theory-only; D6 is implementation-only; no code in M6, no new math in D6.
+  \item \textbf{Cross-cutting Safety (D7 Gates):} privacy/ethics/security/traceability gates apply across blocks, not only at the end.
+  \item \textbf{Reproducibility Baseline (All scales):} seeds, environment lock, and evidence manifest are mandatory even in MIN scale.
+  \item \textbf{Explicit Objective (DOC06):} goals must be explicit, including trade-off rules under conflict.
+\end{enumerate}
+
+% =============================================================================
+\section{Scale Model (MIN / STANDARD / FULL)}
+\label{sec:scale_model}
+Projects are categorized into:
+\[
+\text{ProjectScale} \in \{\textbf{MIN},\ \textbf{STANDARD},\ \textbf{FULL}\}.
+\]
+\begin{itemize}
+  \item \textbf{MIN:} prototypes and solo research. Core correctness and reproducibility.
+  \item \textbf{STANDARD:} publication-grade work (e.g., Q1-level). Strong justification and analysis discipline.
+  \item \textbf{FULL:} safety-critical or production systems. Formal traceability and regulatory readiness.
+\end{itemize}
+
+\subsection{Math proof scaling}
+\label{sec:math_proof_scaling}
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Scale} & \textbf{Math-7 proof requirement (for nontrivial, load-bearing claims)} \\
+\midrule
+MIN & Either (i) cite an established proof (with precise theorem ID), or (ii) register the claim in M7 as conjectural. No silent handwaving. \\
+STANDARD & Provide a structured sketch of proof: key lemmas, dependencies, assumptions, and failure regimes. \\
+FULL & Provide a full proof at a level sufficient for hostile review; formalization is encouraged where feasible. \\
+\bottomrule
+\end{tabularx}
+\caption{Proof scaling rules for Math-7.}
+\end{table}
+
+% =============================================================================
+\section{Canonical Mapping: Form (DOC) to Content (Math/Domain)}
+\label{sec:mapping_table}
+The relationship between DOC artifacts and content blocks is \textbf{not} one-to-one. The canonical mapping is:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{@{}lX X@{}}
+\toprule
+\textbf{DOC Artifact} & \textbf{Primary Content Blocks} & \textbf{Secondary / Optional Blocks} \\
+\midrule
+DOC01 (Foundations) & M1, M2, M3 & D3 (high-level bridge constraints) \\
+DOC02 (Metatheory) & M5, M7 & DOC06 (value tensions), D7 (risk rationale) \\
+DOC03 (Whitepaper) & D1, D2, D6 (high-level) & M4 (high-level), M7 (explicitly conjectural) \\
+DOC04 (Proposal/Plan) & D2, D4, D7 & M7 (blocking dependencies), DOC07 (execution plan) \\
+DOC05 (Technical Paper) & M1--M6, D3--D5 & M7, D7 (limitations, safety) \\
+DOC06 (Value/Goal Map) & all blocks (as optimization constraints) & --- \\
+DOC07 (Execution/OS) & D6, D4 (test harness), D7 (ops gates) & M6 (algorithm IDs), DOC01 (schema checks) \\
+\bottomrule
+\end{tabularx}
+\caption{Canonical injection of content blocks into form artifacts.}
+\end{table}
+
+% =============================================================================
+\section{Layer 1: DOC-7 (Form, Governance, and Enforcement)}
+\subsection{DOC01: Foundations Specification (System Constitution)}
+\begin{GovernanceBox}{System Constitution \& Symbol Law}
+DOC01 is the \textbf{single source of truth} for:
+\begin{itemize}
+  \item symbol dictionary (types, units where applicable, domains/ranges),
+  \item notation and style rules,
+  \item consistency enforcement policy (what counts as a critical mismatch).
+\end{itemize}
+\textbf{Hard rule:} If $x$ is declared a vector in DOC01, it cannot be a scalar in code or in other documents. Any inconsistency is a \textbf{critical bug}.
+\end{GovernanceBox}
+
+\textbf{Minimum required sections:} Symbol Dictionary; Notation Standards; Type/Unit Rules; Consistency Policy; Version/Change Log.
+\textbf{Machine-Readable Registry (Normative for FULL-Spec):} This release includes \texttt{protocol\_registry.sqlite} and its schema \texttt{protocol\_registry\_schema.sql}. The SQLite registry is the canonical machine-readable mirror of:
+(i) the DOC01 Symbol Dictionary (\texttt{symbol\_dictionary}) and
+(ii) the M7 Conjecture Ledger (\texttt{conjecture\_ledger}).
+\textbf{Hard rule:} any divergence between DOC01/M7 text and the registry is a \textbf{Critical Bug} until resolved.
+
+\begin{ScaleBox}{DOC01}
+\begin{itemize}
+  \item MIN: core symbol dictionary + style rules.
+  \item STANDARD: explicit type/unit/range for load-bearing symbols; conflict resolution rules.
+  \item FULL: machine-readable schema (for linters/code-gen) + automated consistency report.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC02: Metatheory \& Rationale (Internal Auditor)}
+\begin{GovernanceBox}{Internal Auditor \& Rejected Alternatives}
+DOC02 provides an adversarial justification:
+\begin{itemize}
+  \item why design choice X was selected,
+  \item why alternatives were rejected,
+  \item known weaknesses and expected failure regimes.
+\end{itemize}
+\textbf{Hard rule:} DOC02 must explicitly list \textbf{Rejected Alternatives} and \textbf{Known Weaknesses}. No ``story-only'' metatheory is acceptable.
+\end{GovernanceBox}
+
+\begin{ScaleBox}{DOC02}
+\begin{itemize}
+  \item MIN: concise rationale + at least 3 rejected alternatives + explicit limitations.
+  \item STANDARD: structured defense against reviewer objections; linkage to M7 blocking items.
+  \item FULL: hostile-audit-level critique, including operational risk analysis tied to D7 gates.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC03: Whitepaper (Narrative Gatekeeper)}
+\begin{GovernanceBox}{Claim Discipline}
+DOC03 is a public-facing narrative artifact.
+\textbf{Hard rule:} every claim in DOC03 must link to either:
+\begin{itemize}
+  \item a proof element in Math-7 (M1--M6), or
+  \item a measured/observed statement justified via Domain-7 (D3--D5), or
+  \item a conjecture explicitly labeled and registered in M7.
+\end{itemize}
+\end{GovernanceBox}
+
+\begin{ScaleBox}{DOC03}
+\begin{itemize}
+  \item MIN: concise; no unlinked claims.
+  \item FULL: includes risk/limitations summary consistent with D7 and DOC02.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC04: Proposal \& Plan (PMO)}
+\begin{GovernanceBox}{Project Management Office (PMO)}
+DOC04 governs execution planning.
+\textbf{Hard rule:} DOC04 must identify a \textbf{critical path} and list blockers coming from M7 (CRITICAL conjectures).
+\end{GovernanceBox}
+
+\textbf{Minimum required sections:} Work Breakdown Structure (WBS); milestones; critical path; resource constraints; risk register (linked to D7); acceptance tests.
+
+\begin{ScaleBox}{DOC04}
+\begin{itemize}
+  \item MIN: minimal WBS + milestones + top 3 risks.
+  \item STANDARD: critical path + dependency graph + risk register.
+  \item FULL: budget/time constraints + formal verification/validation plan and traceability targets.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC05: Technical Paper (Report Engine \& QA)}
+\begin{GovernanceBox}{Assembly Manager \& Quality Gate}
+DOC05 is the report engine (IMRAD-aligned).
+\textbf{Hard rules:}
+\begin{itemize}
+  \item include a \textbf{Content Mapping Table} mapping paper sections $\to$ blocks (M/D/DOC),
+  \item include a \textbf{Reproducibility Statement} (seed, environment, artifact map),
+  \item include a \textbf{Limitations} section referencing M7 and D7 gates.
+\end{itemize}
+\end{GovernanceBox}
+
+\begin{ScaleBox}{DOC05}
+\begin{itemize}
+  \item MIN: short methods + minimal reproducibility statement.
+  \item STANDARD: full IMRAD with statistical plan and uncertainty reporting.
+  \item FULL: registered design (where applicable), full traceability, and safety/regulatory appendix.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC06: Value \& Goal Map (Objective Authority)}
+\begin{GovernanceBox}{Optimization Objective \& Trade-off Law}
+DOC06 defines the objective(s) and conflict resolution.
+\textbf{Hard rule:} provide an explicit \textbf{Trade-off Matrix} stating what wins under conflict (e.g., safety over speed; accuracy over throughput).
+\end{GovernanceBox}
+
+\begin{ScaleBox}{DOC06}
+\begin{itemize}
+  \item MIN: qualitative weights (High/Medium/Low) + explicit priorities.
+  \item STANDARD: numeric weights + documented trade-offs + KPI definitions.
+  \item FULL: multi-objective formulation + acceptance thresholds tied to D7 gates and release criteria.
+\end{itemize}
+\end{ScaleBox}
+
+\subsection{DOC07: Execution / OS Spec (Runtime Authority)}
+\begin{GovernanceBox}{DevOps, Rebuild, and Release Authority}
+DOC07 governs the bridge from design to execution.
+\textbf{Hard rules:}
+\begin{itemize}
+  \item define official entry points (how to run),
+  \item define artifact map (where everything lives),
+  \item lock the environment (dependency versions) for reproducibility,
+  \item define test harness (how D4 protocols run as tests),
+  \item enforce D7 operational gates (privacy/security/monitoring).
+\end{itemize}
+\end{GovernanceBox}
+
+\textbf{Minimum required sections:} Artifact Map; Entry Points; Environment Spec; Dependency Lock; Test Harness; Release/Versioning Strategy; Evidence Manifest plan.
+
+\begin{ScaleBox}{DOC07}
+\begin{itemize}
+  \item MIN: artifact map + single entry point + minimal environment notes.
+  \item STANDARD: pinned dependencies + automated tests + evidence manifest.
+  \item FULL: CI/CD strategy + deployment spec + monitoring + incident response and decommission plan.
+\end{itemize}
+\end{ScaleBox}
+
+% =============================================================================
+\section{Layer 2: Math-7 (Abstract Content)}
+The Math-7 layer is the \textbf{formal content engine}. It must align with DOC01 and respect proof scaling (Section~\ref{sec:math_proof_scaling}).
+
+\subsection{M1: Mathematical Objects \& Spaces}
+\textbf{Required:} object definitions, state spaces, topology/measure structure (as appropriate), typing rules aligned with DOC01.
+
+\subsection{M2: Dynamics / Operators / Rules}
+\textbf{Required:} evolution rules, operators, admissibility conditions, and invariants they preserve.
+
+\subsection{M3: Theorems / Invariants / Proofs}
+\textbf{Required:} statements + proof content scaled by Section~\ref{sec:math_proof_scaling}. Any unproven load-bearing claim must be moved to M7.
+
+\subsection{M4: Models (Mathematical Representation)}
+\textbf{Required:} model class, assumptions, identifiability/regularity assumptions where relevant, links to D3 for observables.
+
+\subsection{M5: Links to Established Theory}
+\textbf{Required:} explicit mapping to known theories; boundary of novelty; citations sufficient for review.
+
+\subsection{M6: Algorithms (Theory Only)}
+\begin{GovernanceBox}{Algorithm Theory Only (No Code)}
+M6 specifies algorithms as \textbf{theory}:
+\begin{itemize}
+  \item each algorithm has an \textbf{ALG-ID},
+  \item input/output contract, correctness argument, convergence conditions,
+  \item complexity characterization, and failure regimes.
+\end{itemize}
+\textbf{Hard rule:} no code and no code-like pseudocode. Only \emph{algorithm schema} (natural-language steps + DOC01 notation).
+\end{GovernanceBox}
+
+\subsection{M7: Conjecture Ledger (Lifecycle Registry)}
+\begin{GovernanceBox}{Anti-Zombie Conjecture Registry}
+Each conjecture entry must include:
+\begin{itemize}
+  \item CJ-ID, statement, testability, \textbf{blocking status} (CRITICAL/IMPORTANT/OPTIONAL),
+  \item owner, due/expiry date, current evidence, next action,
+  \item verdict state (OPEN/VERIFIED/FALSIFIED/DEPRECATED).
+\end{itemize}
+\textbf{Hard rule:} any deliverable that depends on a CRITICAL OPEN conjecture cannot be RELEASED.
+\textbf{Note:} this gate is machine-checkable via the SQLite registry.
+\end{GovernanceBox}
+
+% =============================================================================
+\section{Layer 3: Domain-7 (Concrete Content)}
+Domain-7 operationalizes the theory in a concrete field (medicine, software, physics, etc.). It is responsible for observability, data reality, and validation.
+
+\subsection{D1: Domain Background}
+\textbf{Required:} state of the art, standards/guidelines, known constraints, and what is measurable.
+
+\subsection{D2: Problem Statement \& Use Cases}
+\textbf{Required:} bounded, measurable problem definition; success criteria; use cases; failure cases.
+
+\subsection{D3: Math-to-Domain Bridge (Noise-Aware)}
+\begin{GovernanceBox}{Bridge with Noise Model and Sensitivity}
+D3 is mandatory. Each mapping row must include:
+\begin{itemize}
+  \item units/scaling and valid ranges,
+  \item observability tag (Observed vs Latent),
+  \item measurement/noise model and uncertainty parameters,
+  \item sensitivity/error propagation and error tolerance,
+  \item validation metric and failure modes.
+\end{itemize}
+\end{GovernanceBox}
+
+\subsection{D4: Experimental / Clinical / Simulation Protocols}
+\begin{GovernanceBox}{Registered Design Discipline}
+D4 defines data-generation/collection protocols.
+\textbf{Hard rule:} even in MIN scale, stochastic protocols must declare seeds, run counts, and environment notes.
+\end{GovernanceBox}
+
+\subsection{D5: Statistical / Analytical Plan}
+\textbf{Required:} statistical tests/models, uncertainty quantification, power considerations (where applicable), correction procedures, calibration/validation approach.
+
+\subsection{D6: Implementation \& System Design}
+\begin{GovernanceBox}{Implementation Only (No New Math)}
+D6 is the executable translation of M4/M6.
+\textbf{Hard rule:} no new math definitions in D6; implementation must reference ALG-IDs and DOC01 symbol types.
+\end{GovernanceBox}
+
+\subsection{D7: Regulatory / Safety / Audit Layer (Cross-Cutting)}
+\label{sec:d7_crosscutting}
+\begin{GovernanceBox}{Cross-Cutting Audit Gates}
+D7 is \textbf{not} a final chapter; it is an audit layer applied across blocks.
+At minimum, define gates:
+\begin{itemize}
+  \item Privacy Gate (applies to D1, D4, DOC07),
+  \item Ethics Gate (applies to D4),
+  \item Security Gate (applies to D6, DOC07),
+  \item Traceability Gate (applies to DOC04, DOC07, DOC05).
+\end{itemize}
+No RELEASE is valid without PASS for all applicable gates.
+\end{GovernanceBox}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{@{}lX X X@{}}
+\toprule
+\textbf{Gate} & \textbf{Applies to} & \textbf{Evidence required} & \textbf{Verdict} \\
+\midrule
+D7-P (Privacy) & D1, D4, DOC07 & data minimization plan; legal basis; retention; anonymization/pseudonymization & PASS/FAIL/WAIVER \\
+D7-E (Ethics) & D4 & consent/ethics review status; risk/benefit; inclusion/exclusion rationale & PASS/FAIL/WAIVER \\
+D7-S (Security) & D6, DOC07 & threat model; access control; secret handling; vulnerability checklist & PASS/FAIL/WAIVER \\
+D7-T (Traceability) & DOC04, DOC05, DOC07 & req-to-test matrix; artifact map; reproducibility manifest & PASS/FAIL/WAIVER \\
+\bottomrule
+\end{tabularx}
+\caption{Minimum D7 audit gates and required evidence.}
+\end{table}
+
+% =============================================================================
+\section{Audit Authority and Project-Specific Verdict Engines}
+\label{sec:audit_authority}
+This protocol allows project-specific instantiations of an \textbf{Audit Authority} that issues PASS/FAIL/WAIVER decisions for gates and releases. Such an instantiation may be manual (review board) or automated (lint+CI), but it must remain auditable through evidence manifests.
+
+% =============================================================================
+\section{Reproducibility and Evidence Manifests}
+A compliant project must maintain:
+\begin{itemize}
+  \item an \textbf{artifact map} (DOC07),
+  \item an \textbf{environment lock} (dependency versions; hardware notes for FULL),
+  \item a \textbf{run ledger} (seeds, timestamps, dataset IDs, metrics),
+  \item a \textbf{hash manifest} (SHA-256 of key artifacts).
+\end{itemize}
+
+\begin{TemplateBox}{Evidence Manifest (minimum fields)}
+\begin{itemize}
+  \item Protocol ID + version tag
+  \item Timestamp (UTC) and local timezone
+  \item Artifact list with SHA-256
+  \item Seeds and run IDs for stochastic processes
+  \item Acceptance thresholds used for verdicts (explicit)
+\end{itemize}
+\end{TemplateBox}
+
+% =============================================================================
+\section{External Alignment (Silent Citation)}
+To ensure industry and academic compatibility, this protocol is aligned with:
+\begin{itemize}
+  \item \textbf{C4 Model} for architecture views (DOC07/D6),
+  \item \textbf{ISO/IEC/IEEE 15288} for system lifecycle and assurance hooks (DOC07/D7),
+  \item \textbf{IMRAD} and \textbf{Registered Reports} patterns for DOC05 and D4/D5 discipline,
+  \item \textbf{Zachman-style multi-perspective coverage} as a consistency lens (optional check).
+\end{itemize}
+This is ``silent citation'': alignment is declared for transparency while the protocol remains self-contained.
+
+% =============================================================================
+\section{Acceptance Criteria for v1.0}
+This protocol transitions to \textbf{v1.0 STABLE} only if:
+\begin{enumerate}
+  \item at least one \textbf{FULL-scale} project is completed under this protocol,
+  \item all applicable D7 gates are PASS with evidence,
+  \item the reproducibility manifest is complete and independently rebuildable,
+  \item reviewer feedback is incorporated without violating Global Invariants (Section~\ref{sec:global_invariants}).
+\end{enumerate}
+
+% =============================================================================
+\appendix
+\section{Annex A: Templates}
+\subsection{D3 Mapping Table Template}
+\begin{longtable}{@{}p{2.4cm}p{2.7cm}p{1.8cm}p{2.2cm}p{2.1cm}p{2.1cm}p{2.2cm}p{2.0cm}@{}}
+\toprule
+Math Symbol & Domain Quantity (Obs/Lat) & Units/Scale & Measurement Method & Noise Model & Uncertainty Params & Sensitivity / Error Propagation & Validation Metric \\
+\midrule
+\endfirsthead
+\toprule
+Math Symbol & Domain Quantity (Obs/Lat) & Units/Scale & Measurement Method & Noise Model & Uncertainty Params & Sensitivity / Error Propagation & Validation Metric \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+% Rows (fill per project)
+\textit{(e.g., $x$)} & \textit{(e.g., BP\_sys (Obs))} & \textit{mmHg} & \textit{cuff device} & \textit{additive bias+noise} & \textit{$\sigma=...$} & \textit{$\partial y/\partial x$ ...} & \textit{calibration $R^2$} \\
+\end{longtable}
+
+\subsection{M7 Conjecture Entry Template}
+\begin{TemplateBox}{M7 Conjecture Entry (minimum fields)}
+\begin{itemize}
+  \item CJ-ID; Statement; Dependencies
+  \item Testability (how to falsify)
+  \item Blocking Status: CRITICAL / IMPORTANT / OPTIONAL
+  \item Owner; Due/Expiry Date
+  \item Current Evidence; Next Action
+  \item Verdict: OPEN / VERIFIED / FALSIFIED / DEPRECATED
+\end{itemize}
+\end{TemplateBox}
+
+\section{Annex B: Zachman-style Consistency Lens (Optional)}
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{@{}lX X X X X X@{}}
+\toprule
+Layer & What (Data) & How (Function) & Where (Location) & Who (People) & When (Time) & Why (Goal) \\
+\midrule
+Math-7 & objects/spaces & operators/algorithms & abstract spaces & (n/a) & complexity/time scales & metatheory/novelty \\
+Domain-7 & variables/datasets & protocols/analysis & deployment context & users/subjects & study timeline & use-cases/objectives \\
+DOC-7 & artifacts/registries & build/run scripts & repo/infra map & roles/owners & lifecycle & value/trade-offs \\
+\bottomrule
+\end{tabularx}
+\caption{Optional completeness lens: avoid unintentionally empty cells.}
+\end{table}
+
+\section{Annex Z: Manifest and Evidence Requirements}
+This annex is implemented operationally via the accompanying pack files:
+\texttt{ANNEX\_Z\_MANIFEST\_SHA256.txt}, \texttt{protocol\_registry.sqlite}, and CI/build skeletons.
+
+\newpage
+\section{References \& Citation Policy (Silent Citation)}
+\textbf{Principle:} The protocol is \emph{industry-compatible} and \emph{academically citable} without making external standards part of its dependency tree.
+We therefore use \textbf{silent citation}: the main text says ``aligned with'' and the normative references are recorded here.
+
+\subsection{How to cite this protocol}
+\begin{quote}
+Sahand Canon Standards Committee. \emph{DOC\_PROTO\_7\_PLUS\_14\_MAINSTREAM v0.3\_Integrated\_RC2: Specification \& Release Pack}. 2026.
+\end{quote}
+
+\subsection{Normative external references}
+\begin{thebibliography}{9}
+\bibitem{c4} S. Brown. \emph{The C4 model for visualising software architecture}. (Alignment reference for D6/DOC07 views).
+\bibitem{iso15288} ISO/IEC/IEEE. \emph{15288: Systems and software engineering --- System life cycle processes}. (Alignment reference for DOC07/D7 lifecycle and audit gates).
+\bibitem{imrad} IMRAD structure. \emph{Introduction, Methods, Results, and Discussion}. (Alignment reference for DOC05 reporting structure).
+\bibitem{registered} Registered Reports. (Alignment reference for D4/D5 pre-specified analysis and p-hacking prevention).
+\bibitem{zachman} Zachman Framework. (Reference ontology for coverage linting across What/How/Where/Who/When/Why).
+\end{thebibliography}
+
+\textbf{Plagiarism safeguard:} Alignment does \emph{not} claim authorship or ownership of the above external standards; it declares compatibility only.
+
+\end{document}
