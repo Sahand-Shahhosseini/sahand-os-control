@@ -26,14 +26,28 @@ Status legend: EMPTY → SCOPE_LOCKED → DRAFT → RC0 → RC1 → APPROVED_EXT
 ## Next Action
 - First milestone: Lock scopes for DOC01..DOC07 (SCOPE_LOCKED) then generate RC0 PDFs.
 
-# 14-DOC Index (Control Repo)
+---
 
-## DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3
+# Protocol Architecture Pointer (not stored here yet)
 
-- **Spec file**: `DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3_INTEGRATED_RC2.tex`
-- **Schema**: `protocol_registry_schema.sql`
-- **Bootstrap data**: `protocol_registry_bootstrap.sql`
-- **Manifest**: `ANNEX_Z_MANIFEST_SHA256.txt`
-- **Status**: RC2 (Release Candidate), internal standard for 7+14 document architecture.
+## DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3 (Pointer-only)
 
-This entry is driven by TASK_RUN_1_100 issue #4 in this repository.
+- **Tracking issue:** #4 — `TASK_RUN_1_100: Publish DOC_PROTO v0.3 Integrated RC2 (docs + release)`
+- **Status in this repo:** POINTER (no RC artifacts stored here yet)
+
+### Policy
+This repository is **control-plane only**.  
+Therefore:
+- The actual `.tex` / `.sql` protocol artifacts should live in a dedicated **docs/protocol** repo or in a local-only vault.
+- This file (`14DOC_INDEX.md`) may store **pointers** and **status**, not large document dumps.
+
+### Planned artifacts (names reserved, not present here)
+- `DOC_PROTO_7_PLUS_14_MAINSTREAM_v0_3_INTEGRATED_RC2.tex`
+- `protocol_registry_schema.sql`
+- `protocol_registry_bootstrap.sql`
+- `ANNEX_Z_MANIFEST_SHA256.txt`
+
+### TODO (to resolve the dangling references)
+1. Decide hosting location (a dedicated repo vs local-only).
+2. Update this section with real links (repo/path or local pointer) once hosted.
+3. Do NOT mark anything as RC/LOCKED until real artifacts exist and are reviewable.

@@ -172,3 +172,35 @@ This Engine only provides a consistent way to:
   - Add explicit link to D:\ folder structures.
 
 For now, v0 is intentionally thin and operational.
+
+
+---
+
+## 8. Execution Tools (v0)
+
+This section fixes the allowed execution tools for the human executor (click-only mode).
+
+- **Primary git client:** GitHub Desktop  
+  - Clone / open repo
+  - Fetch / pull / push
+  - Switch branches
+  - Review diffs
+  - Commit changes
+
+- **No Git CLI**
+  - The human executor will NOT use `git` from a terminal.
+  - All git operations must be described in terms of **GitHub Desktop** actions or the **GitHub web UI**.
+
+- **Relation to Program B (Runner 1..100)**
+  - Steps 031–070 (Implementation) MAY explicitly include:
+    - “Edit files locally in an editor”
+    - “Commit via GitHub Desktop”
+    - “Push to origin and, if needed, open a PR in GitHub web UI”
+  - Agents MUST phrase git-related instructions in click-only form.
+
+- **PR vs direct commits**
+  - For small, low-risk doc edits in this control repo, direct commits to `main` via GitHub Desktop are acceptable.
+  - For larger or multi-file changes, prefer:
+    - Create a branch (GitHub Desktop)
+    - Push the branch
+    - Open a Pull Request in the GitHub web UI.

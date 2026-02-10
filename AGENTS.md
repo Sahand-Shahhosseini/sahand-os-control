@@ -23,10 +23,17 @@ If a change attempts to push any of the above into this repo, the agent MUST sto
 ## 1. General Agent Constraints
 
 1. **No CLI for the user**
-   - All workflows must be executable by the user with clicks only (GitHub UI, Desktop apps).
+   - All workflows must be executable by the user with clicks only (GitHub web UI, **GitHub Desktop**).
    - Do not instruct the user to run git commands, shells, or terminals.
 
-2. **No secrets in cloud**
+2. **GitHub Desktop is the tool-of-record**
+   - Assume the human executor uses **GitHub Desktop** for git operations.
+   - When suggesting git operations, describe them as:
+     - GitHub Desktop actions (Fetch, Pull, Switch Branch, Commit, Push)
+     - GitHub web UI actions (Open PR, Review, Merge)
+   - Never require `git ...` commands.
+
+3. **No secrets in cloud**
    - Do not upload or request:
      - Patient data or any PII
      - Private datasets
@@ -34,11 +41,11 @@ If a change attempts to push any of the above into this repo, the agent MUST sto
      - Core unpublished SUFCC/SSTAI math that the owner wants to keep local
    - If in doubt, assume it is sensitive and keep it local.
 
-3. **Fail-closed**
+4. **Fail-closed**
    - If requirements, permissions, or scope are unclear, STOP and request clarification.
    - Never “guess” by creating new top-level structures or pushing large dumps.
 
-4. **Minimal-scope changes**
+5. **Minimal-scope changes**
    - Prefer editing existing files over creating new ones.
    - Do not add new documents/specs unless the task explicitly requests them.
    - Avoid “big refactors” unless there is a dedicated issue for that.
@@ -70,11 +77,11 @@ Agent responsibilities:
 1. **Issues**
    - Each task = one issue.
    - Do not mix unrelated tasks in a single issue.
-   - Link issues to the Project board (Commander).
+   - Link issues to the Project board (Commander) when applicable.
 
 2. **Pull Requests**
    - All non-trivial changes MUST go through a PR.
-   - PR description MUST reference the driving issue:  
+   - PR description MUST reference the driving issue:
      `Fixes #<issue_number>` or `Relates-to #<issue_number>`.
    - Keep PRs small and focused.
 
@@ -101,7 +108,7 @@ For documents belonging to DOCSET_07 or DOCSET_14:
    - Invent fake reviewer feedback
    - Mark a document as `APPROVED_EXT` without real external confirmation
 
-All real reviewer feedback is logged in `DOC14` (External Feedback Log) and linked to issues.
+All real reviewer feedback is logged in DOC14 (External Feedback Log) and linked to issues.
 
 ---
 
