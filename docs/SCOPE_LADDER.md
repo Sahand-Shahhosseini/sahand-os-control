@@ -17,3 +17,10 @@
 - Claims روشن هستند
 - boundaries روشن: چه چیزی داخل/خارج scope است
 - هیچ بخش “خالی” باقیمانده ندارد (حتی اگر کوتاه باشد)
+
+## Stage0 Lock Conditions (for this repo)
+Stage0 is considered **closed** only if all are true:
+1) `docs/P0_DAILY_LOOP_v0.md` exists on `main`.
+2) At least 4 core docs in `docs/14DOC_INDEX.md` have status DRAFT and link to real files.
+3) At least 2 real RUN artifacts exist (file-based runs under `docs/RUNS/`), each with Steps 001–030 filled.
+4) No placeholder-only issue remains open without a replacement link.
