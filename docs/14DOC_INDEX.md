@@ -8,12 +8,12 @@ Status legend: EMPTY → SCOPE_LOCKED → DRAFT → RC0 → RC1 → APPROVED_EXT
 ## Table
 | Doc ID | Title (temp) | Docset | Current Status | v0 Scope (MVP) | Final Scope (Target) |
 |---|---|---|---|---|---|
-| DOC01 | [Executive Summary](docs/DOC01_EXECUTIVE_SUMMARY_v0.md) | 07/14 | DRAFT | 1-2 صفحه | 5-10 صفحه + Claims map |
+| DOC01 | [Executive Summary](DOC01_EXECUTIVE_SUMMARY_v0.md) | 07/14 | DRAFT | 1-2 صفحه | 5-10 صفحه + Claims map |
 | DOC02 | AI-OS-Agent Spec | 07/14 | EMPTY | Spec اجرایی v0 | Spec کامل + APIs + boundaries |
-| DOC03 | [Task System (Commander/Runner)](docs/DOC03_TASK_SYSTEM_COMMANDER_RUNNER_v0.md) | 07/14 | DRAFT | Projects+Issues+Codex flow | Full governance + audit chain |
-| DOC04 | [Repro & Evidence Chain](docs/DOC04_REPRO_EVIDENCE_CHAIN_v0.md) | 07/14 | DRAFT | versioning + hashes + release | full CI + pdf pipeline + provenance |
+| DOC03 | [Task System (Commander/Runner)](DOC03_TASK_SYSTEM_COMMANDER_RUNNER_v0.md) | 07/14 | DRAFT | Projects+Issues+Codex flow | Full governance + audit chain |
+| DOC04 | [Repro & Evidence Chain](DOC04_REPRO_EVIDENCE_CHAIN_v0.md) | 07/14 | DRAFT | versioning + hashes + release | full CI + pdf pipeline + provenance |
 | DOC05 | Security / IP / Red Lines | 07/14 | EMPTY | cloud-vs-local rules | threat model + data classes |
-| DOC06 | [Evaluation & External Review Protocol](docs/DOC06_EVAL_EXTERNAL_REVIEW_PROTOCOL_v0.md) | 07/14 | DRAFT | review loop + RC tagging | multi-reviewer + change-control |
+| DOC06 | [Evaluation & External Review Protocol](DOC06_EVAL_EXTERNAL_REVIEW_PROTOCOL_v0.md) | 07/14 | DRAFT | review loop + RC tagging | multi-reviewer + change-control |
 | DOC07 | Roadmap v0→v1 | 07/14 | EMPTY | milestones 0..3 | milestones کامل تا “Project Complete” |
 | DOC08 | Appendix A: Glossary | 14 | EMPTY | 30 اصطلاح | کامل |
 | DOC09 | Appendix B: File/Folder Canon | 14 | EMPTY | ساختار حداقلی | کامل |
