@@ -1,21 +1,55 @@
-# DOC04 — Repro & Evidence Chain (v0)
+# DOC04 — Reproducible Evidence Chain (v0)
 
-## Objective
-Ensure every non-trivial change can be audited and reproduced.
+This document defines the **minimum** evidence chain required for any serious work in the account.
 
-## Evidence artifacts
-- File-based plans: `docs/RUNS/*.md`
-- Issue drafts: `docs/ISSUE_DRAFTS/*.md`
-- Document skeletons: `docs/DOC0X_*.md`
-- Releases: RC0/RC1/... when packaging exists
+## Goal
+Guarantee that an external reviewer can replay the run and verify:
+- what was executed,
+- with which inputs,
+- what outputs were produced,
+- and that outputs were not modified after the run.
 
-## Rules
-1) Every major task has an Issue (WHAT).
-2) Every non-trivial execution has a RUN (HOW).
-3) Every RUN references committed outputs.
-4) External review requires stored feedback + linkage to fixes.
+## Evidence objects
+A run produces an **Evidence Pack**:
 
-## Fail-closed principle
-If a change might leak sensitive material:
-- Do not commit it.
-- Replace it with a pointer-only note.
+1. **RUN_METADATA.json**
+   - run_id
+   - timestamp
+   - repo(s) involved
+   - operator (human/agent)
+   - workspace root
+   - constraints (Executor-mode, no-delete, fail-closed)
+
+2. **INPUTS_MANIFEST.json**
+   - list of all inputs (files + hashes)
+   - external dependencies (tools + version)
+
+3. **OUTPUTS_MANIFEST.json**
+   - list of all outputs produced (files + hashes)
+   - output directory
+
+4. **SHA256SUMS.txt**
+   - SHA-256 for all files in OUTPUTS_MANIFEST
+
+5. **RUN_LOG.txt**
+   - human-readable log
+   - start/end markers
+   - exit code
+
+## Storage rule
+- Outputs go to the canonical output root (example): `D:\04_OUTPUTS\REPORTS\...`
+- Evidence packs are immutable after creation. If re-run is needed, generate a new run_id.
+
+## Acceptance criteria (PASS)
+A run is **PASS** only if:
+- the runner is double-click runnable,
+- it produces the Evidence Pack files above,
+- hashes match,
+- and the run log shows fail-closed behavior.
+
+## Minimal reviewer instructions
+A reviewer must be able to:
+1. download the Evidence Pack,
+2. recompute hashes,
+3. confirm manifest alignment,
+4. reproduce the run with the same inputs.
